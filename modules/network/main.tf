@@ -26,7 +26,7 @@ module "security_group" {
 module "alb" {
   source = "../alb"
 
-  alb_name          = "${var.environment}_alb"
+  alb_name          = "${var.environment}alb"
   environment       = "${var.environment}"
   vpc_id            = "${module.vpc.id}"
   public_subnet_ids = "${module.public_subnet.ids}"

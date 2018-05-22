@@ -18,6 +18,10 @@ output "security_group_id" {
   value = "${module.security_group.security_group_id}"
 }
 
+output "default_alb_target_group" {
+  value = "${module.alb.default_alb_target_group}"
+}
+
 # output "depends_id" {
 #   value = "${null_resource.dummy_dependency.id}"
 # }

@@ -102,3 +102,7 @@ output "public_subnet_ids" {
 output "security_group_id" {
   value = "${module.network.security_group_id}"
 }
+
+output "default_alb_target_group" {
+  value = "${module.network.default_alb_target_group}"
+}
