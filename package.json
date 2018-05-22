@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node src/bin/www",
-    "terraform:apply": "terraform apply -var-file=network.tfvars",
+    "terraform:apply": "terraform apply -var-file=network.tfvars -lock=false",
     "terraform:destroy": "terraform destroy -var-file=network.tfvars"
   },
   "dependencies": {
