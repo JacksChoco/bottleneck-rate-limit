@@ -48,10 +48,6 @@ resource "aws_s3_bucket" "terraform-state" {
     target_bucket = "${aws_s3_bucket.logs.id}"
     target_prefix = "log/"
   }
-
-  lifecycle {
-    prevent_destroy = true
-  }
 }
 
 terraform {
