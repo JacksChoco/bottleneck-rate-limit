@@ -15,6 +15,14 @@ module "public_subnet" {
   availability_zones = "${var.availability_zones}"
 }
 
+module "security_group" {
+  source = "../security_group"
+
+  name        = "${var.environment}_security_group"
+  environment = "${var.environment}"
+  vpc_id      = "${module.vpc.id}"
+}
+
 resource "aws_route" "public_igw_route" {
   count                  = "${length(var.public_subnet_cidrs)}"
   route_table_id         = "${element(module.public_subnet.route_table_ids, count.index)}"
