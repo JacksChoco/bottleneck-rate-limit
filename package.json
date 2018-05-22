@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node src/bin/www"
+    "start": "node src/bin/www",
+    "terraform:apply": "terraform apply -var-file=network.tfvars"
   },
   "dependencies": {
     "bottleneck": "^2.3.1",
