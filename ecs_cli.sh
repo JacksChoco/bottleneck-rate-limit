@@ -1,38 +1,38 @@
 #!/usr/bin/env bash
 
-ecs-cli configure --cluster hello-ecs-cli --region ${REGION} \
-  --default-launch-type EC2 --config-name hello-ecs-cli
+ecs-cli configure --cluster ${PROJECT_NAME} --region ${REGION} \
+  --default-launch-type EC2 --config-name ${PROJECT_NAME}
 
 ecs-cli configure profile --access-key ${AWS_ACCESS_KEY_ID} \
-  --secret-key ${AWS_SECRET_ACCESS_KEY} --profile-name  hello-ecs-cli
+  --secret-key ${AWS_SECRET_ACCESS_KEY} --profile-name  ${PROJECT_NAME}
 
 
 ecs-cli up --keypair ${KEY_PAIR} \
-  --security-group ${SECURITY_GROUP} --cluster hello-ecs-cli \
+  --security-group ${SECURITY_GROUP} --cluster ${PROJECT_NAME} \
   --vpc ${VPC} --subnets ${SUBNET} \
-  --capability-iam --size 2 --instance-type ${INSTANCE_TYPE}
+  --capability-iam --size 1 --instance-type ${INSTANCE_TYPE}
 # security group은 이름이 아닌 id로 넣어야한다! 이름을 넣으면 클러스터는 생기는데 인스턴스가 안생김...
 
 
 # test compose container up
-ecs-cli compose --file hello-compose.yml \
-  --project-name hello-ecs-cli \
-  up --create-log-groups --cluster hello-ecs-cli
+ecs-cli compose \
+  --project-name ${PROJECT_NAME} \
+  up --create-log-groups --cluster ${PROJECT_NAME}
 
 # test compose scale up
-ecs-cli compose --file hello-compose.yml \
-  --project-name hello-ecs-cli \
-  scale 2 --cluster hello-ecs-cli
+ecs-cli compose \
+  --project-name ${PROJECT_NAME} \
+  scale 2 --cluster ${PROJECT_NAME}
 
 # shutdown compose container
-ecs-cli compose --file hello-compose.yml \
-  --project-name hello-ecs-cli \
-  down --cluster hello-ecs-cli
+ecs-cli compose \
+  --project-name ${PROJECT_NAME} \
+  down --cluster ${PROJECT_NAME}
 
 # 서비스 생성
-ecs-cli compose --file hello-compose.yml \
-  --project-name hello-ecs-cli \
-  service create --cluster hello-ecs-cli \
+ecs-cli compose \
+  --project-name ${PROJECT_NAME} \
+  service create --cluster ${PROJECT_NAME} \
   --deployment-max-percent 200 \
   --deployment-min-healthy-percent 50 \
   --target-group-arn ${TARGET_GROUP_ARN} \
@@ -42,28 +42,28 @@ ecs-cli compose --file hello-compose.yml \
   --create-log-groups
 
 # 서비스 초기화
-ecs-cli compose --file hello-compose.yml \
-  --project-name hello-ecs-cli \
+ecs-cli compose \
+  --project-name ${PROJECT_NAME} \
   service up \
-  --cluster hello-ecs-cli
+  --cluster ${PROJECT_NAME}
 
-ecs-cli compose --file hello-compose.yml \
-  --project-name hello-ecs-cli \
+ecs-cli compose \
+  --project-name ${PROJECT_NAME} \
   service scale 2 \
-  --cluster hello-ecs-cli
+  --cluster ${PROJECT_NAME}
 
 # 서비스 업데이트
-ecs-cli compose --file hello-compose.yml \
-  --project-name hello-ecs-cli \
+ecs-cli compose \
+  --project-name ${PROJECT_NAME} \
   service up \
-  --cluster hello-ecs-cli --force-deployment
+  --cluster ${PROJECT_NAME} --force-deployment
 
 # 서비스 삭제
-ecs-cli compose --file hello-compose.yml \
-  --project-name hello-ecs-cli \
+ecs-cli compose \
+  --project-name ${PROJECT_NAME} \
   service down \
-  --cluster hello-ecs-cli \
-  down --cluster hello-ecs-cli
+  --cluster ${PROJECT_NAME} \
+  down --cluster ${PROJECT_NAME}
 
 # 클러스터 삭제
-ecs-cli down --cluster hello-ecs-cli
+ecs-cli down --cluster ${PROJECT_NAME}
