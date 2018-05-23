@@ -1,0 +1,14 @@
+version: '2'
+services:
+  realtime:
+    image: ${DEPLOY_IMAGE}
+    cpu_shares: 100
+    mem_limit: 524288000
+    ports:
+      - "0:3000"
+    logging:
+      driver: awslogs
+      options:
+        awslogs-group: ${PROJECT_NAME}
+        awslogs-region: ${REGION}
+        # awslogs-stream-prefix: wordpress

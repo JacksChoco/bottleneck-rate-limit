@@ -10,3 +10,4 @@ export REGION="ap-northeast-2"
 export INSTANCE_TYPE="t2.micro"
 export KEY_PAIR="docker"
 export TARGET_GROUP_ARN=`terraform output default_alb_target_group`
+export DEPLOY_IMAGE=``
