@@ -102,3 +102,7 @@ output "security_group_id" {
 output "default_alb_target_group" {
   value = "${module.network.default_alb_target_group}"
 }
+
+output "ecr_url" {
+  value = "${module.network.ecr_url}"
+}
