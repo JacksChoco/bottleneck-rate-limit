@@ -15,14 +15,6 @@ module "public_subnet" {
   availability_zones = "${var.availability_zones}"
 }
 
-module "security_group" {
-  source = "../security_group"
-
-  name        = "${var.environment}_security_group"
-  environment = "${var.environment}"
-  vpc_id      = "${module.vpc.id}"
-}
-
 module "alb" {
   source = "../alb"
 
@@ -30,6 +22,15 @@ module "alb" {
   environment       = "${var.environment}"
   vpc_id            = "${module.vpc.id}"
   public_subnet_ids = "${module.public_subnet.ids}"
+}
+
+module "security_group" {
+  source = "../security_group"
+
+  name                     = "${var.environment}_security_group"
+  environment              = "${var.environment}"
+  vpc_id                   = "${module.vpc.id}"
+  source_security_group_id = "${module.alb.alb_security_group_id}"
 }
 
 module "ecr" {

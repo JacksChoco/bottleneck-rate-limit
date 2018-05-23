@@ -9,3 +9,7 @@ variable "environment" {
 variable "vpc_id" {
   description = "VPC id to place to subnet into"
 }
+
+variable "source_security_group_id" {
+  description = "source의 보안그룹 ID"
+}
