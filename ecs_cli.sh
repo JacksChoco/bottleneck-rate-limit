@@ -14,7 +14,7 @@ ecs-cli up --keypair ${KEY_PAIR} \
 # security group은 이름이 아닌 id로 넣어야한다! 이름을 넣으면 클러스터는 생기는데 인스턴스가 안생김...
 
 # scale up 시키기(인스턴스 갯수를 늘리는 경우)
-ecs-cli scale --capability-iam --size 3 --cluster ${PROJECT_NAME}
+ecs-cli scale --capability-iam --size 1 --cluster ${PROJECT_NAME}
 
 # test compose container up
 ecs-cli compose --file deploy-compose.yml \
@@ -51,7 +51,7 @@ ecs-cli compose --file deploy-compose.yml \
 
 ecs-cli compose --file deploy-compose.yml \
   --project-name ${PROJECT_NAME} \
-  service scale 2 \
+  service scale 3 \
   --cluster ${PROJECT_NAME}
 
 # 서비스 업데이트

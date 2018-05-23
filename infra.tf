@@ -12,6 +12,11 @@ module "network" {
   depends_id           = ""
 }
 
+module "ecr" {
+  source      = "modules/ecr"
+  environment = "${var.environment}"
+}
+
 ### 백업용 S3 및 dynamodb
 resource "aws_dynamodb_table" "terraform_state_lock" {
   name           = "TerraformStateLock"
@@ -104,5 +109,5 @@ output "default_alb_target_group" {
 }
 
 output "ecr_url" {
-  value = "${module.network.ecr_url}"
+  value = "${module.ecr.ecr_url}"
 }

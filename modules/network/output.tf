@@ -22,10 +22,6 @@ output "default_alb_target_group" {
   value = "${module.alb.default_alb_target_group}"
 }
 
-output "ecr_url" {
-  value = "${module.ecr.ecr_url}"
-}
-
 # output "depends_id" {
 #   value = "${null_resource.dummy_dependency.id}"
 # }

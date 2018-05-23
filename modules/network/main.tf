@@ -33,12 +33,6 @@ module "security_group" {
   source_security_group_id = "${module.alb.alb_security_group_id}"
 }
 
-module "ecr" {
-  source = "../ecr"
-
-  name = "${var.environment}"
-}
-
 resource "aws_route" "public_igw_route" {
   count                  = "${length(var.public_subnet_cidrs)}"
   route_table_id         = "${element(module.public_subnet.route_table_ids, count.index)}"
