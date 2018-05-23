@@ -11,4 +11,4 @@ services:
       options:
         awslogs-group: ${PROJECT_NAME}
         awslogs-region: ${REGION}
-        # awslogs-stream-prefix: wordpress
+        awslogs-stream-prefix: ${PROJECT_NAME}
