@@ -15,8 +15,8 @@ module "network" {
 ### 백업용 S3 및 dynamodb
 resource "aws_dynamodb_table" "terraform_state_lock" {
   name           = "TerraformStateLock"
-  read_capacity  = 5
-  write_capacity = 5
+  read_capacity  = 1
+  write_capacity = 1
   hash_key       = "LockID"
 
   attribute {

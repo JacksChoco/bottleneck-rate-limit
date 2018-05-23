@@ -10,16 +10,18 @@ ecs-cli configure profile --access-key ${AWS_ACCESS_KEY_ID} \
 ecs-cli up --keypair ${KEY_PAIR} \
   --security-group ${SECURITY_GROUP} --cluster ${PROJECT_NAME} \
   --vpc ${VPC} --subnets ${SUBNET} \
-  --capability-iam --size 1 --instance-type ${INSTANCE_TYPE}
+  --capability-iam --size 2 --instance-type ${INSTANCE_TYPE}
 # security group은 이름이 아닌 id로 넣어야한다! 이름을 넣으면 클러스터는 생기는데 인스턴스가 안생김...
 
+# scale up 시키기(인스턴스 갯수를 늘리는 경우)
+ecs-cli scale --capability-iam --size 3 --cluster ${PROJECT_NAME}
 
 # test compose container up
 ecs-cli compose --file deploy-compose.yml \
   --project-name ${PROJECT_NAME} \
   up --create-log-groups --cluster ${PROJECT_NAME}
 
-# test compose scale up
+# test compose scale up (컨테이너 갯수를 늘리는 경우)
 ecs-cli compose --file deploy-compose.yml \
   --project-name ${PROJECT_NAME} \
   scale 2 --cluster ${PROJECT_NAME}
@@ -37,8 +39,8 @@ ecs-cli compose --file deploy-compose.yml \
   --deployment-min-healthy-percent 50 \
   --target-group-arn ${TARGET_GROUP_ARN} \
   --health-check-grace-period 30 \
-  --container-name ${PROJECT_NAME}-app \
-  --container-port 9460 \
+  --container-name realtime \
+  --container-port 3000 \
   --create-log-groups
 
 # 서비스 초기화
