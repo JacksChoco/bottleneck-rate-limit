@@ -1,6 +1,6 @@
 version: '2'
 services:
-  realtime:
+  bottleneck:
     image: ${DEPLOY_IMAGE}
     cpu_shares: 100
     mem_limit: 524288000
