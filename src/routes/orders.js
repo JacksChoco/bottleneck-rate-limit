@@ -18,7 +18,7 @@ const readLimiter = new Bottleneck({
   datastore: "redis",
   clearDatastore: false,
   clientOptions: {
-    host: "redis",
+    host: process.env.REDIS_HOST,
     port: 6379
   }
 });
@@ -32,7 +32,7 @@ const writeLimiter = new Bottleneck({
   datastore: "redis",
   clearDatastore: false,
   clientOptions: {
-    host: "redis",
+    host: process.env.REDIS_HOST,
     port: 6379
   }
 });

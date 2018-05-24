@@ -17,6 +17,11 @@ module "ecr" {
   environment = "${var.environment}"
 }
 
+module "redis" {
+  source      = "modules/redis"
+  environment = "${var.environment}"
+}
+
 # module "ecs" {
 #   source = "modules/ecs"
 
