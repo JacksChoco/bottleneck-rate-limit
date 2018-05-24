@@ -1,5 +1,5 @@
 provider "aws" {
-  region = "ap-northeast-2"
+  region = "${var.region}"
 }
 
 module "network" {
@@ -16,6 +16,20 @@ module "ecr" {
   source      = "modules/ecr"
   environment = "${var.environment}"
 }
+
+# module "ecs" {
+#   source = "modules/ecs"
+
+#   region            = "${var.region}"
+#   environment       = "${var.environment}"
+#   max_size          = "${var.max_size}"
+#   min_size          = "${var.min_size}"
+#   image_id          = "${var.image_id}"
+#   instance_type     = "${var.instance_type}"
+#   target_group_arns = "${module.network.default_alb_target_group}"
+#   security_group_id = "${module.network.security_group_id}"
+#   subnet_ids        = "${module.network.public_subnet_ids}"
+# }
 
 ### 백업용 S3 및 dynamodb
 resource "aws_dynamodb_table" "terraform_state_lock" {
@@ -74,7 +88,11 @@ variable "max_size" {}
 variable "min_size" {}
 variable "desired_capacity" {}
 variable "instance_type" {}
-variable "ecs_aws_ami" {}
+variable "image_id" {}
+
+variable "region" {
+  default = "ap-northeast-2"
+}
 
 variable "private_subnet_cidrs" {
   type = "list"

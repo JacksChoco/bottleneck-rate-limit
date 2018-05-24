@@ -16,4 +16,6 @@ desired_capacity = 1
 
 instance_type = "t2.micro"
 
-ecs_aws_ami = "ami-9d56f9f3"
+image_id = "ami-9d56f9f3"
+
+region = "ap-northeast-2"

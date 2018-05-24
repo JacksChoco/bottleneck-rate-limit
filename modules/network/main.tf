@@ -18,7 +18,7 @@ module "public_subnet" {
 module "alb" {
   source = "../alb"
 
-  alb_name          = "${var.environment}alb"
+  alb_name          = "${var.environment}-ecs-alb"
   environment       = "${var.environment}"
   vpc_id            = "${module.vpc.id}"
   public_subnet_ids = "${module.public_subnet.ids}"
