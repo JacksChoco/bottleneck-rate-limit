@@ -11,7 +11,7 @@ const db = (action,params) => {
 
 const readLimiter = new Bottleneck({
   maxConcurrent: null,
-  minTime: 10000,
+  minTime: 100,
   id: "orderReadStream", // Should be unique for every limiter in the same Redis db
 
   /* Clustering options */
@@ -25,7 +25,16 @@ const readLimiter = new Bottleneck({
 
 const writeLimiter = new Bottleneck({
   maxConcurrent: null,
-  minTime: 100
+  minTime: 100,
+  id: "orderWriteStream", // Should be unique for every limiter in the same Redis db
+
+  /* Clustering options */
+  datastore: "redis",
+  clearDatastore: false,
+  clientOptions: {
+    host: "redis",
+    port: 6379
+  }
 });
 
 // 읽기 limiter 수정
@@ -38,13 +47,11 @@ router.patch('/read', (req, res, next) => {
 
 // 읽기 쿼리
 router.post('/read', async (req, res, next) => {
-  console.log(req.body)
+
   const action = req.body.action;
   const params = req.body.params;
 
   const result = await readLimiter.schedule(db,action,params);
-
-  console.log(result)
 
   res.send(result);
 
@@ -56,9 +63,7 @@ router.post('/write', async (req, res, next) => {
   const action = req.body.action;
   const params = req.body.params;
 
-  const write = writeLimiter.wrap(dynamodb[action])
-
-  const result = await write(params).promise()
+  const result = await writeLimiter.schedule(db,action,params);
 
   res.send(result);
 
