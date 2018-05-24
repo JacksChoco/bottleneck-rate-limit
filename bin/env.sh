@@ -11,3 +11,5 @@ export INSTANCE_TYPE="t2.micro"
 export KEY_PAIR="docker"
 export TARGET_GROUP_ARN=`terraform output default_alb_target_group`
 export DEPLOY_IMAGE=`terraform output ecr_url`
+export AWS_ACCESS_KEY_ID=`aws --profile default configure get aws_access_key_id`
+export AWS_SECRET_ACCESS_KEY=`aws --profile default configure get aws_secret_access_key`
