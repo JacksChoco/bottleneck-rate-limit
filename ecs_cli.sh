@@ -39,7 +39,7 @@ ecs-cli compose --file deploy-compose.yml \
   --deployment-min-healthy-percent 50 \
   --target-group-arn ${TARGET_GROUP_ARN} \
   --health-check-grace-period 30 \
-  --container-name realtime \
+  --container-name bottleneck \
   --container-port 3000 \
   --create-log-groups
 

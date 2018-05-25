@@ -18,8 +18,11 @@ module "ecr" {
 }
 
 module "redis" {
-  source      = "modules/redis"
-  environment = "${var.environment}"
+  source                   = "modules/redis"
+  environment              = "${var.environment}"
+  vpc_id                   = "${module.network.vpc_id}"
+  source_security_group_id = "${module.network.security_group_id}"
+  subnet_ids               = "${module.network.public_subnet_ids}"
 }
 
 # module "ecs" {
@@ -133,4 +136,8 @@ output "default_alb_target_group" {
 
 output "ecr_url" {
   value = "${module.ecr.ecr_url}"
+}
+
+output "redis_address" {
+  value = "${module.redis.cluster_address}"
 }
