@@ -6,6 +6,8 @@ services:
     mem_limit: 524288000
     ports:
       - "0:3000"
+    environment:
+      - REDIS_HOST=${REDIS_HOST}
     logging:
       driver: awslogs
       options:
