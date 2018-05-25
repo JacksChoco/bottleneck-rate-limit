@@ -15,7 +15,7 @@ const readLimiter = new Bottleneck({
   id: "orderReadStream", // Should be unique for every limiter in the same Redis db
 
   /* Clustering options */
-  datastore: process.env["REDIS_HOST"],
+  datastore: "redis",
   clearDatastore: false,
   clientOptions: {
     host: process.env.REDIS_HOST,
@@ -29,7 +29,7 @@ const writeLimiter = new Bottleneck({
   id: "orderWriteStream", // Should be unique for every limiter in the same Redis db
 
   /* Clustering options */
-  datastore: process.env["REDIS_HOST"],
+  datastore: "redis",
   clearDatastore: false,
   clientOptions: {
     host: process.env.REDIS_HOST,
