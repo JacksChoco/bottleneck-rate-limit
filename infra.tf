@@ -130,8 +130,8 @@ output "security_group_id" {
   value = "${module.network.security_group_id}"
 }
 
-output "default_alb_target_group" {
-  value = "${module.network.default_alb_target_group}"
+output "default_nlb_target_group" {
+  value = "${module.network.default_nlb_target_group}"
 }
 
 output "ecr_url" {

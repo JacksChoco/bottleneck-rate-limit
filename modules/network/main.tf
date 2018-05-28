@@ -15,10 +15,10 @@ module "public_subnet" {
   availability_zones = "${var.availability_zones}"
 }
 
-module "alb" {
-  source = "../alb"
+module "nlb" {
+  source = "../nlb"
 
-  alb_name          = "${var.environment}-ecs-alb"
+  nlb_name          = "${var.environment}-ecs-nlb"
   environment       = "${var.environment}"
   vpc_id            = "${module.vpc.id}"
   public_subnet_ids = "${module.public_subnet.ids}"
@@ -30,7 +30,7 @@ module "security_group" {
   name                     = "${var.environment}_security_group"
   environment              = "${var.environment}"
   vpc_id                   = "${module.vpc.id}"
-  source_security_group_id = "${module.alb.alb_security_group_id}"
+  source_security_group_id = "${module.nlb.nlb_security_group_id}"
 }
 
 resource "aws_route" "public_igw_route" {
